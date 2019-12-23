@@ -1,5 +1,22 @@
 #include <stdio.h>
 
+/*
+
+This question's main points are
+1. HOW to find 7 nums sum is 100 among 9 nums
+2. HOW to sort 7 nums in ascending order
+
+This is my solution to first question
+1. Sum all 9 nums and find 2 nums which add is equal to sum-100
+  If that two nums add is equal to sum-100,
+  change that num to 100 and break
+
+to secend question
+2. just quick_sort
+ if you want more information
+ use this reference https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html
+
+*/
 void quick_sort(int *arr, int start, int end) {
 	int left = start;
 	int right = end;
