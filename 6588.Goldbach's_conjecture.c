@@ -22,7 +22,7 @@ to secend question
  
 */
 
-int is_prime(n) {
+int is_prime(int n) {
 	if (n <= 3)
 		return n > 1;
 	if (n%2 == 0 || n%3 == 0)
