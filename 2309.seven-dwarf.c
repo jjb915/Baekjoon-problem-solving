@@ -2,6 +2,9 @@
 
 /*
 
+problem website
+https://www.acmicpc.net/problem/2309
+
 This question's main points are
 1. HOW to find 7 nums sum is 100 among 9 nums
 2. HOW to sort 7 nums in ascending order
@@ -17,6 +20,7 @@ to secend question
  use this reference https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html
 
 */
+
 void quick_sort(int *arr, int start, int end) {
 	int left = start;
 	int right = end;
