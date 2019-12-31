@@ -1,5 +1,19 @@
 #include <stdio.h>
 
+/*
+
+problem website
+https://www.acmicpc.net/problem/1476
+
+[Main Points]
+1. HOW do we find the fact that the Year's
+ remainder is equal with three input numbers.
+ 
+[Solution]
+1. Increase e, s, m, year from 1 until e=E, s=S, m=M
+
+*/
+
 int main() {
 	int E, S, M; // 15, 28, 19
 	int e=1, s=1, m=1, year=1;
