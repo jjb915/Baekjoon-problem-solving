@@ -1,88 +1,114 @@
 #include <stdio.h>
 #include <math.h>
-void maximum_difference(int *arr, int n);
+
+void swap(int *a, int *b);
+void reverse(int *first, int *last);
+int next_permutation(int *first, int *last);
 int cal_difference(int *arr, int n);
+void quick_sort(int *arr, int start, int end);
 
 int main() {
 	int n;
 	scanf("%d", &n);
 	
 	int arr[n];
-	int i;
+	int i, max_sum = 0;
+	
 	for (i=0; i<n; ++i) {
 		scanf("%d", &arr[i]);
 	}
 	
-	maximum_difference(arr, n);
-	
+	quick_sort(arr, 0, n-1);
+/*
 	for (i=0; i<n; ++i) {
 		printf("%d ", arr[i]);
 	}
-	
-	printf("%d", cal_difference(arr, n));
-	
+	printf("\n");
+*/
+	while(next_permutation(arr, arr+n)) {
+	 	
+		int dif = cal_difference(arr, n);
+		if (max_sum < dif) {
+			max_sum = dif;
+		}
+/*		
+		for (i=0; i<n; ++i) {
+			printf("%d ", arr[i]);
+		}
+		printf("\n");
+*/
+	}
+		
+	printf("%d", max_sum);
 	return 0;
+	
 }
 
-void maximum_difference(int *arr, int n) {
-	int max[n/2], min[n/2];
-	int i, j, a, b;
+void swap(int *a, int *b) {
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+void reverse(int *first, int *last) {
+	int i;
+	for (i=0; i <= (last-first)/2; ++i) {
+		swap(first+i, last-i);
+	}
+}
+
+int next_permutation(int *first, int *last) {
+	if (first == last) return 0;
+	int *i = first;
+	++i;
 	
-	for (i=0; i < n/2; ++i) {
-		max[i] = -100;
-		min[i] = 100;
-		
-		for (j=0; j<n; ++j) {
-			if ((max[i] < arr[j]) && (arr[j] <= 100)) {
-				max[i] = arr[j];
-				printf("max = %d\n", arr[j]);
-				a=j;
-			}
-					
-			if ((min[i] > arr[j]) && (arr[j] <= 100)) {
-				min[i] = arr[j];
-				printf("min = %d\n", arr[j]);
-				b=j;
-			}			
+	if (i == last) return 0;
+	i = last;
+	--i;
+	
+	while (1) {
+		int *ii = i;
+		--i;
+		if (*i < *ii) {
+			int *j = last;
+			while (*i >= *(--j));
+			swap(i, j);
+			reverse(ii, last-1);
+			return 1;
 		}
-		arr[a] = 101;
-		arr[b] = 101;
-	}
-	
-	for (i=0; i<n/2; ++i) {
-		printf("max : %d, min %d\n", max[i], min[i]);
-	}
-	
-	if (n%2 == 1) {
-		int another;
-		for (i=0; i<n; ++i) {
-			if (arr[j] <= 100) {
-				another = arr[j];
-			}
-		}
-	}
-	
-	if (n%2 == 0) {
-		for (i=0; i < n/2; ++i) {
-			if (i%2 == 0) {
-				arr[n/2+i] = max[i];
-				arr[n/2-i-1] = min[i];
-			} 
-			else {
-				arr[n/2+i] = min[i];
-				arr[n/2-i-1] = max[i];
-			}
+		if (i == first) {
+			reverse(first, last-1);
+			return 0;
 		}
 	}
 }
 
 int cal_difference(int *arr, int n) {
-	int i, sum=0;
-	for (i=0; i<n-1; ++i) {
+	int i, sum = 0;
+	for (i=0; i < n-1; ++i) {
 		sum += abs(arr[i] - arr[i+1]);
 	}
 	return sum;
 }
-		
+
+void quick_sort(int *arr, int start, int last) {
+	int left = start;
+	int right = last;
+	int pivot = arr[(start+last)/2];
 	
-	
+	while (left <= right) {
+		while (pivot > arr[left]) ++left;
+		while (pivot < arr[right]) --right;
+		if (left <= right) {
+			swap(arr+left, arr+right);
+			++left;
+			--right;
+		}
+	}
+	if (left < last) {
+		quick_sort(arr, left, last);
+	}
+	if (right > start) {
+		quick_sort(arr, start, right);
+	}
+}
