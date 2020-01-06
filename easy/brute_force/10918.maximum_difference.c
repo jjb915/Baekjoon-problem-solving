@@ -1,6 +1,23 @@
 #include <stdio.h>
 #include <math.h>
 
+/*
+ problem website
+ https://www.acmicpc.net/problem/10819
+ 
+ [Main Point]
+ 1. How to find sequence of maximum difference
+ 2. How to calculate that difference
+ 
+ [Solution]
+ 1. Use next_permutation function
+  Before use it you must sort that permutation
+  I use quick_sort algorithm for sorting
+  
+ 2. sum += abs(arr[i] - arr[i+1])  0 <= i < n-1
+
+*/
+
 void swap(int *a, int *b);
 void reverse(int *first, int *last);
 int next_permutation(int *first, int *last);
@@ -52,6 +69,7 @@ void swap(int *a, int *b) {
 
 void reverse(int *first, int *last) {
 	int i;
+	--last;
 	for (i=0; i <= (last-first)/2; ++i) {
 		swap(first+i, last-i);
 	}
@@ -73,11 +91,11 @@ int next_permutation(int *first, int *last) {
 			int *j = last;
 			while (*i >= *(--j));
 			swap(i, j);
-			reverse(ii, last-1);
+			reverse(ii, last);
 			return 1;
 		}
 		if (i == first) {
-			reverse(first, last-1);
+			reverse(first, last);
 			return 0;
 		}
 	}
